@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { Account } from "../types/accounts";
 import AccountCard from "./AccountCard";
 import QuickActions from "./QuickActions";
 import TransactionList from "./TransactionList";
+import { CryptoWallet } from "./CryptoWallet";
 
 interface DashboardProps {
   isDuressMode: boolean;
 }
 
-function Dashboard({ isDuressMode }: DashboardProps) {
-  const [showBalances, setShowBalances] = useState(true);
-
+export default function Dashboard({ isDuressMode }: DashboardProps) {
   const accounts: Account[] = [
     {
       id: "1",
@@ -44,11 +42,12 @@ function Dashboard({ isDuressMode }: DashboardProps) {
             key={account.id}
             account={account}
             isDuressMode={isDuressMode}
-            showBalance={showBalances}
-            onToggleBalance={() => setShowBalances(!showBalances)}
           />
         ))}
       </div>
+
+      {/* Crypto Wallet Section */}
+      <CryptoWallet isDuressMode={isDuressMode} />
 
       {/* Quick Actions */}
       <section className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-8">
@@ -68,4 +67,3 @@ function Dashboard({ isDuressMode }: DashboardProps) {
     </main>
   );
 }
-export default Dashboard;

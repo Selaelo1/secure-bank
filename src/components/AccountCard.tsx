@@ -1,19 +1,17 @@
+import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Account } from "../types/accounts";
 
 interface AccountCardProps {
   account: Account;
   isDuressMode: boolean;
-  showBalance: boolean;
-  onToggleBalance: () => void;
 }
 
 export default function AccountCard({
   account,
   isDuressMode,
-  showBalance,
-  onToggleBalance,
 }: AccountCardProps) {
+  const [isHidden, setIsHidden] = useState(false);
   const displayBalance = isDuressMode
     ? account.balance * 0.02
     : account.balance;
@@ -26,23 +24,23 @@ export default function AccountCard({
           <p className="text-sm text-gray-500">{account.accountNumber}</p>
         </div>
         <button
-          onClick={onToggleBalance}
+          onClick={() => setIsHidden(!isHidden)}
           className="p-2 hover:bg-gray-100 rounded-full transition"
         >
-          {showBalance ? (
-            <EyeOff className="w-5 h-5" />
-          ) : (
+          {isHidden ? (
             <Eye className="w-5 h-5" />
+          ) : (
+            <EyeOff className="w-5 h-5" />
           )}
         </button>
       </div>
       <div className="mt-2">
         <p className="text-2xl font-bold">
-          {showBalance
-            ? `R ${displayBalance.toLocaleString("en-ZA", {
+          {isHidden
+            ? "••••••"
+            : `R ${displayBalance.toLocaleString("en-ZA", {
                 minimumFractionDigits: 2,
-              })}`
-            : "••••••"}
+              })}`}
         </p>
       </div>
     </div>

@@ -1,4 +1,7 @@
+import { ReactNode } from "react";
+
 export interface Account {
+  [x: string]: ReactNode;
   id: string;
   name: string;
   balance: number;

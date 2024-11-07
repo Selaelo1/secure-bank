@@ -7,12 +7,7 @@ interface NavbarProps {
   onProfileClick: () => void;
 }
 
-export function Navbar({
-  isDuressMode,
-  onLogout,
-  onProfileClick,
-}: NavbarProps) {
-  // eslint-disable-next-line no-empty-pattern
+export function Navbar({ onLogout, onProfileClick }: NavbarProps) {
   const [] = useState(false);
 
   return (
@@ -22,14 +17,6 @@ export function Navbar({
           <Shield className="w-8 h-8 text-blue-600" />
           <span className="text-xl font-bold text-gray-800">SecureBank</span>
         </div>
-
-        {isDuressMode && (
-          <div className="bg-red-50 px-4 py-1 rounded-full">
-            <span className="text-red-600 text-sm font-medium">
-              Maintenance Mode
-            </span>
-          </div>
-        )}
 
         <div className="flex items-center space-x-4">
           <button className="p-2 hover:bg-gray-100 rounded-full">

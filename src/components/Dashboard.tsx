@@ -6,9 +6,13 @@ import { CryptoWallet } from "./CryptoWallet";
 
 interface DashboardProps {
   isDuressMode: boolean;
+  onSelectAccount: (account: Account) => void; // Accept onSelectAccount as prop
 }
 
-export default function Dashboard({ isDuressMode }: DashboardProps) {
+export default function Dashboard({
+  isDuressMode,
+  onSelectAccount,
+}: DashboardProps) {
   const accounts: Account[] = [
     {
       id: "1",
@@ -42,6 +46,7 @@ export default function Dashboard({ isDuressMode }: DashboardProps) {
             key={account.id}
             account={account}
             isDuressMode={isDuressMode}
+            onSelectAccount={onSelectAccount} // Pass onSelectAccount to AccountCard
           />
         ))}
       </div>

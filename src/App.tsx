@@ -52,7 +52,7 @@ export function App() {
           ) : (
             <Dashboard
               isDuressMode={isDuressMode}
-              onSelectAccount={setSelectedAccount}
+              onSelectAccount={setSelectedAccount} // Pass down the setter
             />
           )}
         </div>

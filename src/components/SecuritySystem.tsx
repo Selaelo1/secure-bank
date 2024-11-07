@@ -5,15 +5,15 @@ interface SecuritySystemProps {
   onLogin: (pin: string) => void;
 }
 
-export default function SecuritySystem({ onLogin }: SecuritySystemProps) {
+export function SecuritySystem({ onLogin }: SecuritySystemProps) {
   const [pin, setPin] = useState("");
 
   const handlePinInput = (digit: string) => {
-    if (pin.length < 4) {
+    if (pin.length < 5) {
       const newPin = pin + digit;
       setPin(newPin);
 
-      if (newPin.length === 4) {
+      if (newPin.length === 5) {
         onLogin(newPin);
       }
     }
@@ -30,13 +30,13 @@ export default function SecuritySystem({ onLogin }: SecuritySystemProps) {
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
           <p className="text-gray-600 mt-2">
-            Enter your PIN to access your account
+            Enter your 5-digit PIN to access your account
           </p>
         </div>
 
         <div className="mb-8">
           <div className="flex justify-center space-x-4 mb-8">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(5)].map((_, i) => (
               <div
                 key={i}
                 className={`w-4 h-4 rounded-full ${

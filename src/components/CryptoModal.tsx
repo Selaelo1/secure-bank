@@ -16,12 +16,10 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-lg">
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-800">
-            {titles[type]}
-          </h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-2xl w-full max-w-lg my-4">
+        <div className="flex justify-between items-center p-4 sm:p-6 border-b">
+          <h2 className="text-lg sm:text-xl font-semibold">{titles[type]}</h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full"
@@ -30,7 +28,7 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {type === "send" && (
             <div className="space-y-4">
               <div>
@@ -92,7 +90,6 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
               </div>
               <div className="flex justify-center">
                 <div className="bg-white p-4 rounded-lg shadow-sm">
-                  {/* In a real app, this would be a QR code */}
                   <div className="w-48 h-48 bg-gray-100 rounded-lg"></div>
                 </div>
               </div>
@@ -175,7 +172,7 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
           )}
         </div>
 
-        <div className="p-6 border-t">
+        <div className="p-4 sm:p-6 border-t">
           <button
             onClick={onClose}
             className="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-xl hover:bg-blue-700 transition"

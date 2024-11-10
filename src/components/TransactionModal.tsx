@@ -13,10 +13,10 @@ export default function TransactionModal({
   onReport,
 }: TransactionModalProps) {
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-lg">
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-800">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-2xl w-full max-w-lg my-4">
+        <div className="flex justify-between items-center p-4 sm:p-6 border-b">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
             Transaction Details
           </h2>
           <button
@@ -27,8 +27,8 @@ export default function TransactionModal({
           </button>
         </div>
 
-        <div className="p-6 space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-6 space-y-4">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center space-x-3">
               <div className="bg-blue-50 p-3 rounded-full">
                 {transaction.icon}
@@ -41,11 +41,9 @@ export default function TransactionModal({
               </div>
             </div>
             <span
-              className={
-                transaction.amount > 0
-                  ? "text-green-600 text-lg font-semibold"
-                  : "text-gray-800 text-lg font-semibold"
-              }
+              className={`${
+                transaction.amount > 0 ? "text-green-600" : "text-gray-800"
+              } text-lg font-semibold`}
             >
               {transaction.amount > 0 ? "+" : ""}R{" "}
               {Math.abs(transaction.amount).toLocaleString("en-ZA", {
@@ -54,7 +52,7 @@ export default function TransactionModal({
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
             <div>
               <p className="text-sm text-gray-500">Date</p>
               <p className="font-medium">{transaction.date}</p>
@@ -86,7 +84,7 @@ export default function TransactionModal({
           </div>
         </div>
 
-        <div className="p-6 border-t bg-gray-50 rounded-b-2xl">
+        <div className="p-4 sm:p-6 border-t bg-gray-50 rounded-b-2xl">
           <button
             onClick={onReport}
             className="w-full flex items-center justify-center space-x-2 bg-red-50 hover:bg-red-100 text-red-600 font-medium py-3 px-4 rounded-xl transition"

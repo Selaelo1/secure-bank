@@ -1,60 +1,41 @@
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import React from "react";
+import { CreditCard, ArrowRight } from "lucide-react";
 import { Account } from "../types/accounts";
 
 interface AccountCardProps {
   account: Account;
   isDuressMode: boolean;
-  onSelectAccount: (account: Account) => void; // Add onSelectAccount prop
+  onSelect: () => void;
 }
 
 export default function AccountCard({
   account,
   isDuressMode,
-  onSelectAccount, // Destructure the onSelectAccount prop
+  onSelect,
 }: AccountCardProps) {
-  const [isHidden, setIsHidden] = useState(false);
-  const displayBalance = isDuressMode
-    ? account.balance * 0.02
-    : account.balance;
-
-  const handleClick = () => {
-    // Trigger the onSelectAccount callback when the card is clicked
-    onSelectAccount(account);
-  };
-
   return (
     <div
-      className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition"
-      onClick={handleClick} // Call handleClick on card click
+      onClick={onSelect}
+      className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition cursor-pointer"
     >
       <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="font-semibold text-gray-800">{account.name}</h3>
-          <p className="text-sm text-gray-500">{account.accountNumber}</p>
+        <div className="bg-blue-100 p-2 rounded-lg">
+          <CreditCard className="w-6 h-6 text-blue-600" />
         </div>
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent the click from triggering handleClick
-            setIsHidden(!isHidden);
-          }}
-          className="p-2 hover:bg-gray-100 rounded-full transition"
-        >
-          {isHidden ? (
-            <Eye className="w-5 h-5" />
-          ) : (
-            <EyeOff className="w-5 h-5" />
-          )}
+        <button className="text-blue-600 hover:text-blue-700">
+          <ArrowRight className="w-5 h-5" />
         </button>
       </div>
-      <div className="mt-2">
-        <p className="text-2xl font-bold">
-          {isHidden
-            ? "••••••"
-            : `R ${displayBalance.toLocaleString("en-ZA", {
-                minimumFractionDigits: 2,
-              })}`}
-        </p>
+
+      <h3 className="font-medium text-gray-800 mb-1">{account.name}</h3>
+      <p className="text-sm text-gray-500 mb-4">{account.accountNumber}</p>
+
+      <div className="text-xl font-bold text-gray-800">
+        R{" "}
+        {account.balance.toLocaleString("en-ZA", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
       </div>
     </div>
   );

@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  Building,
-  ShoppingCart,
-  CreditCard,
-  Wallet,
-  ArrowUpRight,
-  ArrowDownRight,
-  Receipt,
-} from "lucide-react";
+import { useState } from "react";
+import { Building, ShoppingCart, Wallet, ArrowDownRight } from "lucide-react";
 import { Transaction } from "../types/accounts";
 import { FraudClaim } from "../types/fraud";
 import TransactionModal from "./TransactionModal";

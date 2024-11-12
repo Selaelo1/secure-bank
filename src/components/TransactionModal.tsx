@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { X, AlertTriangle } from "lucide-react";
 import { Transaction } from "../types/accounts";
 import { FraudClaimModal } from "./FraudClaimModal";

@@ -1,4 +1,3 @@
-import React from "react";
 import { CreditCard, ArrowRight } from "lucide-react";
 import { Account } from "../types/accounts";
 
@@ -8,11 +7,7 @@ interface AccountCardProps {
   onSelect: () => void;
 }
 
-export default function AccountCard({
-  account,
-  isDuressMode,
-  onSelect,
-}: AccountCardProps) {
+export default function AccountCard({ account, onSelect }: AccountCardProps) {
   return (
     <div
       onClick={onSelect}

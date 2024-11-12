@@ -8,20 +8,50 @@ import {
   Shield,
   Building,
   X,
+  MapPin,
+  Phone,
+  Clock4,
 } from "lucide-react";
 import { Account } from "../types/accounts";
 import TransactionList from "./TransactionList";
+import { TransferModal } from "./TransferModal";
+import { FraudClaim } from "../types/fraud";
 
 interface AccountDetailsProps {
   account: Account;
   onBack: () => void;
   isDuressMode: boolean;
+  onAddFraudClaim?: (claim: FraudClaim) => void;
 }
 
 interface CardModalProps {
   onClose: () => void;
   accountType: "CURRENT" | "CREDIT";
 }
+
+interface BranchInfo {
+  name: string;
+  address: string;
+  phone: string;
+  hours: {
+    weekdays: string;
+    saturday: string;
+    sunday: string;
+  };
+  manager: string;
+}
+
+const branchInfo: BranchInfo = {
+  name: "Sandton City Branch",
+  address: "Shop L31, Sandton City Mall, 83 Rivonia Rd, Sandhurst, Sandton",
+  phone: "+27 11 784 5000",
+  hours: {
+    weekdays: "09:00 - 16:30",
+    saturday: "09:00 - 13:00",
+    sunday: "Closed",
+  },
+  manager: "Sarah Johnson",
+};
 
 const CardModal: React.FC<CardModalProps> = ({ onClose, accountType }) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -144,12 +174,13 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
   account,
   onBack,
   isDuressMode,
+  onAddFraudClaim,
 }) => {
-  const [activeTab, setActiveTab] = useState<"transactions" | "settings">(
-    "transactions"
-  );
+  const [activeTab, setActiveTab] = useState<
+    "transactions" | "settings" | "branch"
+  >("transactions");
   const [showCardModal, setShowCardModal] = useState(false);
-  const [, setShowTransferModal] = useState(false);
+  const [showTransferModal, setShowTransferModal] = useState(false);
 
   return (
     <div className="h-full bg-gray-50">
@@ -197,7 +228,10 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
           </div>
           <span className="text-sm">Card Details</span>
         </button>
-        <button className="flex flex-col items-center p-3 hover:bg-gray-50 rounded-xl">
+        <button
+          onClick={() => setActiveTab("branch")}
+          className="flex flex-col items-center p-3 hover:bg-gray-50 rounded-xl"
+        >
           <div className="bg-blue-100 p-2 rounded-full mb-2">
             <Building className="w-5 h-5 text-blue-600" />
           </div>
@@ -230,27 +264,107 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
             <Settings className="w-5 h-5" />
             <span>Account Info</span>
           </button>
+          <button
+            onClick={() => setActiveTab("branch")}
+            className={`flex items-center space-x-2 py-4 px-2 border-b-2 transition ${
+              activeTab === "branch"
+                ? "border-blue-600 text-blue-600"
+                : "border-transparent text-gray-500"
+            }`}
+          >
+            <Building className="w-5 h-5" />
+            <span>Branch</span>
+          </button>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-4">
-        {activeTab === "transactions" ? (
+        {activeTab === "transactions" && (
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <TransactionList isDuressMode={isDuressMode} />
+            <TransactionList
+              isDuressMode={isDuressMode}
+              onAddFraudClaim={onAddFraudClaim}
+            />
           </div>
-        ) : (
+        )}
+
+        {activeTab === "settings" && (
           <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
-            {/* Account Settings / Info */}
             <div>
               <div className="text-sm text-gray-500">Account Holder</div>
-              <div className="text-lg font-semibold">{account.holder}</div>
+              <div className="text-lg font-semibold">John Doe</div>
             </div>
             <div>
               <div className="text-sm text-gray-500">Account Type</div>
               <div className="text-lg font-semibold">{account.type}</div>
             </div>
-            {/* Add more fields as necessary */}
+            <div>
+              <div className="text-sm text-gray-500">Account Number</div>
+              <div className="text-lg font-semibold">
+                {account.accountNumber}
+              </div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-500">Branch Code</div>
+              <div className="text-lg font-semibold">250655</div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "branch" && (
+          <div className="bg-white rounded-xl p-6 shadow-sm space-y-6">
+            <div className="flex items-start space-x-3">
+              <MapPin className="w-5 h-5 text-blue-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800">
+                  {branchInfo.name}
+                </h3>
+                <p className="text-gray-600">{branchInfo.address}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <Phone className="w-5 h-5 text-blue-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800">Contact</h3>
+                <p className="text-gray-600">{branchInfo.phone}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <Clock4 className="w-5 h-5 text-blue-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800">Operating Hours</h3>
+                <p className="text-gray-600">
+                  Weekdays: {branchInfo.hours.weekdays}
+                  <br />
+                  Saturday: {branchInfo.hours.saturday}
+                  <br />
+                  Sunday: {branchInfo.hours.sunday}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <Shield className="w-5 h-5 text-blue-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800">Branch Manager</h3>
+                <p className="text-gray-600">{branchInfo.manager}</p>
+              </div>
+            </div>
+
+            <button
+              onClick={() =>
+                window.open(
+                  "https://www.google.com/maps/search/?api=1&query=Sandton+City+Mall",
+                  "_blank"
+                )
+              }
+              className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
+            >
+              Get Directions
+            </button>
           </div>
         )}
       </div>
@@ -259,10 +373,16 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
       {showCardModal && (
         <CardModal
           onClose={() => setShowCardModal(false)}
-          accountType="CURRENT"
+          accountType={account.type === "CREDIT" ? "CREDIT" : "CURRENT"}
         />
       )}
-      {/* Add transfer modal if needed */}
+
+      {showTransferModal && (
+        <TransferModal
+          onClose={() => setShowTransferModal(false)}
+          sourceAccount={account}
+        />
+      )}
     </div>
   );
 };

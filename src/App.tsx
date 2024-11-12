@@ -6,13 +6,24 @@ import { FicaNotification } from "./components/FicaNotification";
 import { Navbar } from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import { ProfileSection } from "./components/ProfileSection";
+import AccountDetails from "./components/AccountDetails";
+import { Account } from "./types/accounts";
+import { FraudClaim } from "./types/fraud";
 
 export function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [isDuressMode, setIsDuressMode] = useState(false);
   const [currentView, setCurrentView] = useState<
-    "landing" | "login" | "signup" | "fica" | "dashboard" | "profile"
+    | "landing"
+    | "login"
+    | "signup"
+    | "fica"
+    | "dashboard"
+    | "profile"
+    | "account-details"
   >("landing");
+  const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
+  const [fraudClaims, setFraudClaims] = useState<FraudClaim[]>([]);
 
   const handleLogin = (pin: string) => {
     if (pin === "12345") {
@@ -38,6 +49,21 @@ export function App() {
 
   const handleProfileClick = () => {
     setCurrentView("profile");
+  };
+
+  const handleSelectAccount = (account: Account) => {
+    setSelectedAccount(account);
+    setCurrentView("account-details");
+  };
+
+  const handleAddFraudClaim = (claim: FraudClaim) => {
+    setFraudClaims((prevClaims) => [claim, ...prevClaims]);
+  };
+
+  const handleDeleteClaim = (claimId: string) => {
+    setFraudClaims((prevClaims) =>
+      prevClaims.filter((claim) => claim.id !== claimId)
+    );
   };
 
   return (
@@ -68,12 +94,30 @@ export function App() {
       )}
 
       {currentView === "dashboard" && authenticated && (
-        <Dashboard isDuressMode={isDuressMode} onSelectAccount={() => {}} />
+        <Dashboard
+          isDuressMode={isDuressMode}
+          onSelectAccount={handleSelectAccount}
+        />
       )}
 
       {currentView === "profile" && authenticated && (
-        <ProfileSection onBackToDashboard={() => setCurrentView("dashboard")} />
+        <ProfileSection
+          onBackToDashboard={() => setCurrentView("dashboard")}
+          fraudClaims={fraudClaims}
+          onDeleteClaim={handleDeleteClaim}
+        />
       )}
+
+      {currentView === "account-details" &&
+        authenticated &&
+        selectedAccount && (
+          <AccountDetails
+            account={selectedAccount}
+            onBack={() => setCurrentView("dashboard")}
+            isDuressMode={isDuressMode}
+            onAddFraudClaim={handleAddFraudClaim}
+          />
+        )}
     </div>
   );
 }

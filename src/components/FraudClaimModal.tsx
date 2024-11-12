@@ -1,5 +1,6 @@
 import React from "react";
 import { X, AlertTriangle } from "lucide-react";
+import { Transaction } from "../types/accounts";
 
 interface FraudClaimModalProps {
   onClose: () => void;
@@ -9,9 +10,14 @@ interface FraudClaimModalProps {
     amount: number;
     date: string;
   }) => void;
+  transaction?: Transaction;
 }
 
-export function FraudClaimModal({ onClose, onSubmit }: FraudClaimModalProps) {
+export function FraudClaimModal({
+  onClose,
+  onSubmit,
+  transaction,
+}: FraudClaimModalProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -20,8 +26,10 @@ export function FraudClaimModal({ onClose, onSubmit }: FraudClaimModalProps) {
     onSubmit({
       type: formData.get("type") as string,
       description: formData.get("description") as string,
-      amount: Number(formData.get("amount")),
-      date: formData.get("date") as string,
+      amount: transaction
+        ? Math.abs(transaction.amount)
+        : Number(formData.get("amount")),
+      date: transaction ? transaction.date : (formData.get("date") as string),
     });
   };
 
@@ -58,36 +66,42 @@ export function FraudClaimModal({ onClose, onSubmit }: FraudClaimModalProps) {
               <option value="Card Skimming">Card Skimming</option>
               <option value="Online Fraud">Online Fraud</option>
               <option value="Identity Theft">Identity Theft</option>
+              <option value="Phishing">Phishing Attack</option>
+              <option value="Account Takeover">Account Takeover</option>
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Amount
-            </label>
-            <input
-              type="number"
-              name="amount"
-              required
-              min="0"
-              step="0.01"
-              placeholder="0.00"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          {!transaction && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Amount
+              </label>
+              <input
+                type="number"
+                name="amount"
+                required
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Date of Incident
-            </label>
-            <input
-              type="date"
-              name="date"
-              required
-              max={new Date().toISOString().split("T")[0]}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          {!transaction && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Date of Incident
+              </label>
+              <input
+                type="date"
+                name="date"
+                required
+                max={new Date().toISOString().split("T")[0]}
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">

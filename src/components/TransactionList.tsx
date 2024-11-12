@@ -1,14 +1,25 @@
-import { useState } from "react";
-import { Building, ShoppingCart, Wallet, ArrowDownRight } from "lucide-react";
+import React, { useState } from "react";
+import {
+  Building,
+  ShoppingCart,
+  CreditCard,
+  Wallet,
+  ArrowUpRight,
+  ArrowDownRight,
+  Receipt,
+} from "lucide-react";
 import { Transaction } from "../types/accounts";
+import { FraudClaim } from "../types/fraud";
 import TransactionModal from "./TransactionModal";
 
 interface TransactionListProps {
   isDuressMode: boolean;
+  onAddFraudClaim?: (claim: FraudClaim) => void;
 }
 
 export default function TransactionList({
   isDuressMode,
+  onAddFraudClaim,
 }: TransactionListProps) {
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
@@ -67,10 +78,10 @@ export default function TransactionList({
     },
   ];
 
-  const handleReportTransaction = () => {
-    alert(
-      "Transaction has been reported. Our fraud department will contact you shortly."
-    );
+  const handleReportTransaction = (claim: FraudClaim) => {
+    if (onAddFraudClaim) {
+      onAddFraudClaim(claim);
+    }
     setSelectedTransaction(null);
   };
 

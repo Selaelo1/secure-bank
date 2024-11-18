@@ -23,7 +23,7 @@ export function App() {
     | "account-details"
   >("landing");
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
-  const [fraudClaims, setFraudClaims] = useState<FraudClaim[]>([]);
+  const [, setFraudClaims] = useState<FraudClaim[]>([]);
 
   const handleLogin = (pin: string) => {
     if (pin === "12345") {
@@ -58,12 +58,6 @@ export function App() {
 
   const handleAddFraudClaim = (claim: FraudClaim) => {
     setFraudClaims((prevClaims) => [claim, ...prevClaims]);
-  };
-
-  const handleDeleteClaim = (claimId: string) => {
-    setFraudClaims((prevClaims) =>
-      prevClaims.filter((claim) => claim.id !== claimId)
-    );
   };
 
   return (
@@ -101,11 +95,7 @@ export function App() {
       )}
 
       {currentView === "profile" && authenticated && (
-        <ProfileSection
-          onBackToDashboard={() => setCurrentView("dashboard")}
-          fraudClaims={fraudClaims}
-          onDeleteClaim={handleDeleteClaim}
-        />
+        <ProfileSection onBackToDashboard={() => setCurrentView("dashboard")} />
       )}
 
       {currentView === "account-details" &&

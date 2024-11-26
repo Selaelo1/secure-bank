@@ -6,7 +6,7 @@ import TransactionModal from "./TransactionModal";
 
 interface TransactionListProps {
   isDuressMode: boolean;
-  onAddFraudClaim?: (claim: FraudClaim) => void;
+  onAddFraudClaim: (claim: FraudClaim) => void;
 }
 
 export default function TransactionList({
@@ -71,9 +71,7 @@ export default function TransactionList({
   ];
 
   const handleReportTransaction = (claim: FraudClaim) => {
-    if (onAddFraudClaim) {
-      onAddFraudClaim(claim);
-    }
+    onAddFraudClaim(claim);
     setSelectedTransaction(null);
   };
 

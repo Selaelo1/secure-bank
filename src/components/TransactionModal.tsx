@@ -29,15 +29,23 @@ export default function TransactionModal({
   }) => {
     const newClaim: FraudClaim = {
       id: `FR${Date.now()}`,
-      date: data.date,
+      date: transaction.date,
       type: data.type,
-      amount: data.amount,
+      amount: Math.abs(transaction.amount),
       status: "AWAITING_AGENT",
       description: data.description,
       lastUpdate: new Date().toISOString().split("T")[0],
+      transactionDetails: {
+        title: transaction.title,
+        reference: transaction.reference,
+        merchantId: transaction.merchantId,
+        time: transaction.time,
+        location: transaction.location,
+      },
     };
     onReport(newClaim);
     setShowFraudModal(false);
+    onClose();
   };
 
   return (

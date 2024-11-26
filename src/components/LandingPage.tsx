@@ -9,7 +9,7 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+      <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="py-8">
             <nav className="flex justify-between items-center">

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { X, AlertTriangle } from "lucide-react";
-import { Transaction } from "../types/accounts";
-import { FraudClaimModal } from "./FraudClaimModal";
-import { FraudClaim } from "../types/fraud";
+import React, { useState } from 'react';
+import { X, AlertTriangle } from 'lucide-react';
+import { Transaction } from '../types/accounts';
+import { FraudClaimModal } from './FraudClaimModal';
+import { FraudClaim } from '../types/fraud';
 
 interface TransactionModalProps {
   transaction: Transaction;
@@ -10,38 +10,29 @@ interface TransactionModalProps {
   onReport: (claim: FraudClaim) => void;
 }
 
-export default function TransactionModal({
-  transaction,
-  onClose,
-  onReport,
-}: TransactionModalProps) {
+export default function TransactionModal({ transaction, onClose, onReport }: TransactionModalProps) {
   const [showFraudModal, setShowFraudModal] = useState(false);
 
   const handleReportClick = () => {
     setShowFraudModal(true);
   };
 
-  const handleFraudSubmit = (data: {
-    type: string;
-    description: string;
-    amount: number;
-    date: string;
-  }) => {
+  const handleFraudSubmit = (data: { type: string; description: string; amount: number; date: string }) => {
     const newClaim: FraudClaim = {
       id: `FR${Date.now()}`,
       date: transaction.date,
       type: data.type,
       amount: Math.abs(transaction.amount),
-      status: "AWAITING_AGENT",
+      status: 'AWAITING_AGENT',
       description: data.description,
-      lastUpdate: new Date().toISOString().split("T")[0],
+      lastUpdate: new Date().toISOString().split('T')[0],
       transactionDetails: {
         title: transaction.title,
         reference: transaction.reference,
         merchantId: transaction.merchantId,
         time: transaction.time,
-        location: transaction.location,
-      },
+        location: transaction.location
+      }
     };
     onReport(newClaim);
     setShowFraudModal(false);
@@ -53,17 +44,12 @@ export default function TransactionModal({
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
         <div className="bg-white rounded-2xl w-full max-w-lg my-4">
           <div className="flex justify-between items-center p-4 sm:p-6 border-b">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Transaction Details
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-full"
-            >
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Transaction Details</h2>
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
               <X className="w-5 h-5" />
             </button>
           </div>
-
+          
           <div className="p-4 sm:p-6 space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center space-x-3">
@@ -71,23 +57,13 @@ export default function TransactionModal({
                   {transaction.icon}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800">
-                    {transaction.title}
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    {transaction.reference}
-                  </p>
+                  <h3 className="font-semibold text-gray-800">{transaction.title}</h3>
+                  <p className="text-sm text-gray-500">{transaction.reference}</p>
                 </div>
               </div>
-              <span
-                className={`${
-                  transaction.amount > 0 ? "text-green-600" : "text-gray-800"
-                } text-lg font-semibold`}
-              >
-                {transaction.amount > 0 ? "+" : ""}R{" "}
-                {Math.abs(transaction.amount).toLocaleString("en-ZA", {
-                  minimumFractionDigits: 2,
-                })}
+              <span className={`${transaction.amount > 0 ? 'text-green-600' : 'text-gray-800'} text-lg font-semibold`}>
+                {transaction.amount > 0 ? '+' : ''}
+                R {Math.abs(transaction.amount).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
               </span>
             </div>
 
@@ -102,19 +78,15 @@ export default function TransactionModal({
               </div>
               <div>
                 <p className="text-sm text-gray-500">Location</p>
-                <p className="font-medium">
-                  {transaction.location || "Online Transaction"}
-                </p>
+                <p className="font-medium">{transaction.location || 'Online Transaction'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Status</p>
-                <p className="font-medium capitalize">
-                  {transaction.status.toLowerCase()}
-                </p>
+                <p className="font-medium capitalize">{transaction.status.toLowerCase()}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Merchant ID</p>
-                <p className="font-medium">{transaction.merchantId || "N/A"}</p>
+                <p className="font-medium">{transaction.merchantId || 'N/A'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Category</p>

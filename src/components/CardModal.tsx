@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X, Shield, CreditCard as CardIcon } from "lucide-react";
+import React, { useState } from 'react';
+import { X, Shield, CreditCard as CardIcon } from 'lucide-react';
 
 interface CardModalProps {
   onClose: () => void;
@@ -8,8 +8,7 @@ interface CardModalProps {
 
 export default function CardModal({ onClose, accountType }: CardModalProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const cardNumber =
-    accountType === "CREDIT" ? "5412 •••• •••• 8901" : "4532 •••• •••• 7890";
+  const cardNumber = accountType === "CREDIT" ? "5412 •••• •••• 8901" : "4532 •••• •••• 7890";
   const cardHolder = "JOHN DOE";
   const expiryDate = "12/27";
   const cvv = "•••";
@@ -21,10 +20,7 @@ export default function CardModal({ onClose, accountType }: CardModalProps) {
           <h2 className="text-lg sm:text-xl font-semibold">
             {accountType === "CREDIT" ? "Credit Card" : "Debit Card"}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -90,9 +86,7 @@ export default function CardModal({ onClose, accountType }: CardModalProps) {
                     </div>
                     <div className="flex justify-between items-center mt-8">
                       <div>
-                        <div className="text-xs opacity-75 mb-1">
-                          VALID THRU
-                        </div>
+                        <div className="text-xs opacity-75 mb-1">VALID THRU</div>
                         <div className="font-mono text-sm sm:text-base">
                           {expiryDate}
                         </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { X } from "lucide-react";
+import React from 'react';
+import { X } from 'lucide-react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -8,12 +8,7 @@ interface MobileMenuProps {
   onSignupClick: () => void;
 }
 
-export function MobileMenu({
-  isOpen,
-  onClose,
-  onLoginClick,
-  onSignupClick,
-}: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, onLoginClick, onSignupClick }: MobileMenuProps) {
   if (!isOpen) return null;
 
   return (
@@ -22,10 +17,7 @@ export function MobileMenu({
       <div className="fixed right-0 top-0 bottom-0 w-[75%] max-w-sm bg-white">
         <div className="flex items-center justify-between p-4 border-b">
           <span className="font-semibold text-gray-900">Menu</span>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
             <X className="w-5 h-5" />
           </button>
         </div>

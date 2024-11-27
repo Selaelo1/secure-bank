@@ -13,15 +13,7 @@ import { FraudClaim } from "./types/fraud";
 export function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [isDuressMode, setIsDuressMode] = useState(false);
-  const [currentView, setCurrentView] = useState<
-    | "landing"
-    | "login"
-    | "signup"
-    | "fica"
-    | "dashboard"
-    | "profile"
-    | "account-details"
-  >("landing");
+  const [currentView, setCurrentView] = useState<'landing' | 'login' | 'signup' | 'fica' | 'dashboard' | 'profile' | 'account-details'>('landing');
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
   const [fraudClaims, setFraudClaims] = useState<FraudClaim[]>([]);
 
@@ -29,102 +21,98 @@ export function App() {
     if (pin === "12345") {
       setAuthenticated(true);
       setIsDuressMode(false);
-      setCurrentView("dashboard");
+      setCurrentView('dashboard');
     } else if (pin === "99999") {
       setAuthenticated(true);
       setIsDuressMode(true);
-      setCurrentView("dashboard");
+      setCurrentView('dashboard');
     }
   };
 
   const handleLogout = () => {
     setAuthenticated(false);
     setIsDuressMode(false);
-    setCurrentView("landing");
+    setCurrentView('landing');
   };
 
   const handleSignupComplete = () => {
-    setCurrentView("fica");
+    setCurrentView('fica');
   };
 
   const handleProfileClick = () => {
-    setCurrentView("profile");
+    setCurrentView('profile');
   };
 
   const handleSelectAccount = (account: Account) => {
     setSelectedAccount(account);
-    setCurrentView("account-details");
+    setCurrentView('account-details');
   };
 
   const handleAddFraudClaim = (claim: FraudClaim) => {
-    setFraudClaims((prevClaims) => [claim, ...prevClaims]);
+    setFraudClaims(prevClaims => [claim, ...prevClaims]);
   };
 
   const handleDeleteClaim = (claimId: string) => {
-    setFraudClaims((prevClaims) =>
-      prevClaims.filter((claim) => claim.id !== claimId)
-    );
+    setFraudClaims(prevClaims => prevClaims.filter(claim => claim.id !== claimId));
   };
 
   const handleBackToHome = () => {
-    setCurrentView("dashboard");
+    setCurrentView('dashboard');
   };
 
   return (
     <div className="min-h-screen bg-[#f8fafc]">
       {authenticated && (
-        <Navbar
-          isDuressMode={isDuressMode}
-          onLogout={handleLogout}
+        <Navbar 
+          isDuressMode={isDuressMode} 
+          onLogout={handleLogout} 
           onProfileClick={handleProfileClick}
-          onBackToHome={
-            currentView !== "dashboard" ? handleBackToHome : undefined
-          }
+          onBackToHome={currentView !== 'dashboard' ? handleBackToHome : undefined}
+        />
+      )}
+      
+      {currentView === 'landing' && (
+        <LandingPage 
+          onLoginClick={() => setCurrentView('login')}
+          onSignupClick={() => setCurrentView('signup')}
         />
       )}
 
-      {currentView === "landing" && (
-        <LandingPage
-          onLoginClick={() => setCurrentView("login")}
-          onSignupClick={() => setCurrentView("signup")}
-        />
+      {currentView === 'login' && (
+        <SecuritySystem onLogin={handleLogin} />
       )}
 
-      {currentView === "login" && <SecuritySystem onLogin={handleLogin} />}
-
-      {currentView === "signup" && (
+      {currentView === 'signup' && (
         <SignupFlow onComplete={handleSignupComplete} />
       )}
 
-      {currentView === "fica" && (
-        <FicaNotification onBackToHome={() => setCurrentView("landing")} />
+      {currentView === 'fica' && (
+        <FicaNotification onBackToHome={() => setCurrentView('landing')} />
       )}
 
-      {currentView === "dashboard" && authenticated && (
-        <Dashboard
-          isDuressMode={isDuressMode}
+      {currentView === 'dashboard' && authenticated && (
+        <Dashboard 
+          isDuressMode={isDuressMode} 
           onSelectAccount={handleSelectAccount}
         />
       )}
 
-      {currentView === "profile" && authenticated && (
-        <ProfileSection
-          onBackToDashboard={() => setCurrentView("dashboard")}
+      {currentView === 'profile' && authenticated && (
+        <ProfileSection 
+          onBackToDashboard={() => setCurrentView('dashboard')}
           fraudClaims={fraudClaims}
           onDeleteClaim={handleDeleteClaim}
         />
       )}
 
-      {currentView === "account-details" &&
-        authenticated &&
-        selectedAccount && (
-          <AccountDetails
-            account={selectedAccount}
-            onBack={() => setCurrentView("dashboard")}
-            isDuressMode={isDuressMode}
-            onAddFraudClaim={handleAddFraudClaim}
-          />
-        )}
+      {currentView === 'account-details' && authenticated && selectedAccount && (
+        <AccountDetails
+          account={selectedAccount}
+          onBack={() => setCurrentView('dashboard')}
+          isDuressMode={isDuressMode}
+          onAddFraudClaim={handleAddFraudClaim}
+        />
+      )}
     </div>
   );
 }

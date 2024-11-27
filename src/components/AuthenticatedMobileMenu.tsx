@@ -1,5 +1,5 @@
-import React from "react";
-import { X, Bell, UserCircle, LogOut } from "lucide-react";
+import React from 'react';
+import { X, Bell, UserCircle, LogOut } from 'lucide-react';
 
 interface AuthenticatedMobileMenuProps {
   isOpen: boolean;
@@ -29,10 +29,7 @@ export function AuthenticatedMobileMenu({
       <div className="fixed right-0 top-0 bottom-0 w-[75%] max-w-sm bg-white">
         <div className="flex items-center justify-between p-4 border-b">
           <span className="font-semibold text-gray-900">Menu</span>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -45,7 +42,9 @@ export function AuthenticatedMobileMenu({
               <UserCircle className="w-5 h-5" />
               <span>Profile</span>
             </button>
-            <button className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
+            <button
+              className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+            >
               <Bell className="w-5 h-5" />
               <span>Notifications</span>
             </button>

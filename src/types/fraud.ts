@@ -10,6 +10,14 @@ export interface ClaimUpdate {
   message: string;
 }
 
+export interface TransactionDetails {
+  title: string;
+  reference: string;
+  merchantId?: string;
+  time: string;
+  location?: string;
+}
+
 export interface FraudClaim {
   id: string;
   date: string;
@@ -20,4 +28,5 @@ export interface FraudClaim {
   lastUpdate: string;
   agent?: FraudAgent;
   updates?: ClaimUpdate[];
+  transactionDetails?: TransactionDetails;
 }

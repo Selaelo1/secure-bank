@@ -1,13 +1,6 @@
-import React, { useState } from "react";
-import {
-  Shield,
-  Bell,
-  UserCircle,
-  Menu,
-  LogOut,
-  ArrowLeft,
-} from "lucide-react";
-import { AuthenticatedMobileMenu } from "./AuthenticatedMobileMenu";
+import React, { useState } from 'react';
+import { Shield, Bell, UserCircle, Menu, LogOut, ArrowLeft } from 'lucide-react';
+import { AuthenticatedMobileMenu } from './AuthenticatedMobileMenu';
 
 interface NavbarProps {
   isDuressMode: boolean;
@@ -16,12 +9,7 @@ interface NavbarProps {
   onBackToHome?: () => void;
 }
 
-export function Navbar({
-  isDuressMode,
-  onLogout,
-  onProfileClick,
-  onBackToHome,
-}: NavbarProps) {
+export function Navbar({ isDuressMode, onLogout, onProfileClick, onBackToHome }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -45,13 +33,13 @@ export function Navbar({
             <button className="p-2 hover:bg-gray-100 rounded-full">
               <Bell className="w-6 h-6 text-gray-600" />
             </button>
-            <button
+            <button 
               className="p-2 hover:bg-gray-100 rounded-full"
               onClick={onProfileClick}
             >
               <UserCircle className="w-6 h-6 text-gray-600" />
             </button>
-            <button
+            <button 
               onClick={onLogout}
               className="p-2 hover:bg-gray-100 rounded-full text-red-600"
             >
@@ -59,7 +47,7 @@ export function Navbar({
             </button>
           </div>
 
-          <button
+          <button 
             onClick={() => setIsMobileMenuOpen(true)}
             className="md:hidden p-2 hover:bg-gray-100 rounded-full"
           >

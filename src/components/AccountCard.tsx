@@ -1,5 +1,6 @@
-import { CreditCard, ArrowRight } from "lucide-react";
-import { Account } from "../types/accounts";
+import React from 'react';
+import { CreditCard, ArrowRight } from 'lucide-react';
+import { Account } from '../types/accounts';
 
 interface AccountCardProps {
   account: Account;
@@ -7,9 +8,9 @@ interface AccountCardProps {
   onSelect: () => void;
 }
 
-export default function AccountCard({ account, onSelect }: AccountCardProps) {
+export default function AccountCard({ account, isDuressMode, onSelect }: AccountCardProps) {
   return (
-    <div
+    <div 
       onClick={onSelect}
       className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition cursor-pointer"
     >
@@ -21,13 +22,12 @@ export default function AccountCard({ account, onSelect }: AccountCardProps) {
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>
-
+      
       <h3 className="font-medium text-gray-800 mb-1">{account.name}</h3>
       <p className="text-sm text-gray-500 mb-4">{account.accountNumber}</p>
-
+      
       <div className="text-xl font-bold text-gray-800">
-        R{" "}
-        {account.balance.toLocaleString("en-ZA", {
+        R {account.balance.toLocaleString('en-ZA', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Shield, Upload, CheckCircle } from "lucide-react";
+import React, { useState } from 'react';
+import { Shield, Upload, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface SignupFlowProps {
   onComplete: () => void;
@@ -20,15 +20,15 @@ interface FormData {
 export function SignupFlow({ onComplete }: SignupFlowProps) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    idNumber: "",
-    dateOfBirth: "",
-    address: "",
-    city: "",
-    postalCode: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    idNumber: '',
+    dateOfBirth: '',
+    address: '',
+    city: '',
+    postalCode: '',
   });
   const [documents, setDocuments] = useState({
     idDocument: null,
@@ -64,18 +64,14 @@ export function SignupFlow({ onComplete }: SignupFlowProps) {
       <div className="max-w-xl mx-auto">
         <div className="text-center mb-8">
           <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-800">
-            Create Your Account
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-800">Create Your Account</h1>
           <p className="text-gray-600 mt-2">Step {step} of 3</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           {step === 1 && (
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold mb-4">
-                Personal Information
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -161,9 +157,7 @@ export function SignupFlow({ onComplete }: SignupFlowProps) {
 
           {step === 2 && (
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold mb-4">
-                Address Information
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">Address Information</h2>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Street Address
@@ -224,7 +218,7 @@ export function SignupFlow({ onComplete }: SignupFlowProps) {
                       <CheckCircle className="w-6 h-6 text-green-500" />
                     ) : (
                       <button
-                        onClick={() => handleFileUpload("idDocument")}
+                        onClick={() => handleFileUpload('idDocument')}
                         className="flex items-center space-x-2 text-blue-600 hover:text-blue-700"
                       >
                         <Upload className="w-5 h-5" />
@@ -246,7 +240,7 @@ export function SignupFlow({ onComplete }: SignupFlowProps) {
                       <CheckCircle className="w-6 h-6 text-green-500" />
                     ) : (
                       <button
-                        onClick={() => handleFileUpload("proofOfAddress")}
+                        onClick={() => handleFileUpload('proofOfAddress')}
                         className="flex items-center space-x-2 text-blue-600 hover:text-blue-700"
                       >
                         <Upload className="w-5 h-5" />
@@ -268,7 +262,7 @@ export function SignupFlow({ onComplete }: SignupFlowProps) {
                       <CheckCircle className="w-6 h-6 text-green-500" />
                     ) : (
                       <button
-                        onClick={() => handleFileUpload("selfie")}
+                        onClick={() => handleFileUpload('selfie')}
                         className="flex items-center space-x-2 text-blue-600 hover:text-blue-700"
                       >
                         <Upload className="w-5 h-5" />
@@ -286,7 +280,7 @@ export function SignupFlow({ onComplete }: SignupFlowProps) {
               onClick={handleNext}
               className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
             >
-              {step === 3 ? "Submit Application" : "Continue"}
+              {step === 3 ? 'Submit Application' : 'Continue'}
             </button>
           </div>
         </div>

@@ -1,17 +1,6 @@
-import React, { useState } from "react";
-import {
-  Shield,
-  ChevronRight,
-  Users,
-  Lock,
-  Building2,
-  CreditCard,
-  Smartphone,
-  Globe,
-  ArrowRight,
-  Menu,
-} from "lucide-react";
-import { MobileMenu } from "./MobileMenu";
+import React, { useState } from 'react';
+import { Shield, ChevronRight, Users, Lock, Building2, CreditCard, Smartphone, Globe, ArrowRight, Menu } from 'lucide-react';
+import { MobileMenu } from './MobileMenu';
 
 interface LandingPageProps {
   onLoginClick: () => void;
@@ -34,15 +23,9 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-gray-900">
-                Features
-              </a>
-              <a href="#security" className="text-gray-600 hover:text-gray-900">
-                Security
-              </a>
-              <a href="#pricing" className="text-gray-600 hover:text-gray-900">
-                Pricing
-              </a>
+              <a href="#features" className="text-gray-600 hover:text-gray-900">Features</a>
+              <a href="#security" className="text-gray-600 hover:text-gray-900">Security</a>
+              <a href="#pricing" className="text-gray-600 hover:text-gray-900">Pricing</a>
               <button
                 onClick={onLoginClick}
                 className="text-blue-600 hover:text-blue-700 font-medium"
@@ -56,7 +39,7 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
                 Open Account
               </button>
             </div>
-            <button
+            <button 
               onClick={() => setIsMobileMenuOpen(true)}
               className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition"
             >
@@ -76,7 +59,7 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
 
       {/* Rest of the component remains exactly the same */}
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-600 to-blue-800 pt-32 pb-20 md:pt-40 md:pb-32 h-screen">
+      <div className="relative bg-gradient-to-br from-blue-600 to-blue-800 pt-32 pb-20 md:pt-40 md:pb-32">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[200%] aspect-[1/1] bg-gradient-to-b from-blue-400/20 to-transparent rounded-[100%]" />
         </div>
@@ -124,36 +107,33 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
               {
                 icon: <CreditCard className="w-6 h-6 text-blue-600" />,
                 title: "Virtual Cards",
-                description:
-                  "Create unlimited virtual cards for secure online shopping",
+                description: "Create unlimited virtual cards for secure online shopping"
               },
               {
                 icon: <Smartphone className="w-6 h-6 text-blue-600" />,
                 title: "Mobile Banking",
-                description: "Bank from anywhere with our powerful mobile app",
+                description: "Bank from anywhere with our powerful mobile app"
               },
               {
                 icon: <Globe className="w-6 h-6 text-blue-600" />,
                 title: "Global Transfers",
-                description:
-                  "Send money worldwide with competitive exchange rates",
+                description: "Send money worldwide with competitive exchange rates"
               },
               {
                 icon: <Lock className="w-6 h-6 text-blue-600" />,
                 title: "Advanced Security",
-                description:
-                  "Multi-layer security with biometric authentication",
+                description: "Multi-layer security with biometric authentication"
               },
               {
                 icon: <Users className="w-6 h-6 text-blue-600" />,
                 title: "Joint Accounts",
-                description: "Share accounts with family and manage together",
+                description: "Share accounts with family and manage together"
               },
               {
                 icon: <Building2 className="w-6 h-6 text-blue-600" />,
                 title: "Business Banking",
-                description: "Powerful tools for your growing business",
-              },
+                description: "Powerful tools for your growing business"
+              }
             ].map((feature, index) => (
               <div
                 key={index}
@@ -165,11 +145,10 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 mb-4">{feature.description}</p>
-                <a
-                  href="#"
-                  className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center group"
-                >
+                <p className="text-gray-600 mb-4">
+                  {feature.description}
+                </p>
+                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center group">
                   Learn more
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -191,8 +170,8 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
                 Bank-grade security for your peace of mind
               </h2>
               <p className="text-xl text-gray-600 mb-8">
-                Your security is our top priority. We use the latest encryption
-                and security measures to protect your money and data.
+                Your security is our top priority. We use the latest encryption and
+                security measures to protect your money and data.
               </p>
               <ul className="space-y-4">
                 {[
@@ -200,22 +179,12 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
                   "Biometric authentication",
                   "Real-time fraud detection",
                   "24/7 fraud monitoring",
-                  "Zero liability protection",
+                  "Zero liability protection"
                 ].map((item, index) => (
                   <li key={index} className="flex items-center space-x-3">
                     <div className="bg-green-100 p-1 rounded-full">
-                      <svg
-                        className="w-4 h-4 text-green-600"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                      <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <span className="text-gray-700">{item}</span>
@@ -272,101 +241,37 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
             <div>
               <h3 className="text-white font-semibold mb-4">Product</h3>
               <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Security
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Business
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Enterprise
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-white transition">Features</a></li>
+                <li><a href="#" className="hover:text-white transition">Security</a></li>
+                <li><a href="#" className="hover:text-white transition">Business</a></li>
+                <li><a href="#" className="hover:text-white transition">Enterprise</a></li>
               </ul>
             </div>
             <div>
               <h3 className="text-white font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Press
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Blog
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-white transition">About</a></li>
+                <li><a href="#" className="hover:text-white transition">Careers</a></li>
+                <li><a href="#" className="hover:text-white transition">Press</a></li>
+                <li><a href="#" className="hover:text-white transition">Blog</a></li>
               </ul>
             </div>
             <div>
               <h3 className="text-white font-semibold mb-4">Resources</h3>
               <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Privacy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Terms
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-white transition">Documentation</a></li>
+                <li><a href="#" className="hover:text-white transition">Help Center</a></li>
+                <li><a href="#" className="hover:text-white transition">Privacy</a></li>
+                <li><a href="#" className="hover:text-white transition">Terms</a></li>
               </ul>
             </div>
             <div>
               <h3 className="text-white font-semibold mb-4">Contact</h3>
               <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    support@securebank.com
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    +27 (0) 11 123 4567
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Find a Branch
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    ATM Locator
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-white transition">support@securebank.com</a></li>
+                <li><a href="#" className="hover:text-white transition">+27 (0) 11 123 4567</a></li>
+                <li><a href="#" className="hover:text-white transition">Find a Branch</a></li>
+                <li><a href="#" className="hover:text-white transition">ATM Locator</a></li>
               </ul>
             </div>
           </div>
@@ -375,7 +280,9 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
               <Shield className="w-8 h-8 text-blue-600" />
               <span className="text-xl font-bold text-white">SecureBank</span>
             </div>
-            <p className="text-sm">© 2024 SecureBank. All rights reserved.</p>
+            <p className="text-sm">
+              © 2024 SecureBank. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

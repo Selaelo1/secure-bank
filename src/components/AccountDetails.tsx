@@ -30,9 +30,7 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
   isDuressMode,
   onAddFraudClaim,
 }) => {
-  const [activeTab, setActiveTab] = useState<
-    "transactions" | "settings" | "branch"
-  >("transactions");
+  const [activeTab, setActiveTab] = useState<"transactions" | "settings" | "branch">("transactions");
   const [showCardModal, setShowCardModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
 
@@ -82,7 +80,7 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
           </div>
           <span className="text-sm">Card Details</span>
         </button>
-        <button
+        <button 
           onClick={() => setActiveTab("branch")}
           className="flex flex-col items-center p-3 hover:bg-gray-50 rounded-xl"
         >
@@ -136,8 +134,8 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
       <div className="p-4">
         {activeTab === "transactions" && (
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <TransactionList
-              isDuressMode={isDuressMode}
+            <TransactionList 
+              isDuressMode={isDuressMode} 
               onAddFraudClaim={onAddFraudClaim}
             />
           </div>
@@ -155,9 +153,7 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
             </div>
             <div>
               <div className="text-sm text-gray-500">Account Number</div>
-              <div className="text-lg font-semibold">
-                {account.accountNumber}
-              </div>
+              <div className="text-lg font-semibold">{account.accountNumber}</div>
             </div>
             <div>
               <div className="text-sm text-gray-500">Branch Code</div>
@@ -171,12 +167,8 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
             <div className="flex items-start space-x-3">
               <MapPin className="w-5 h-5 text-blue-600 mt-1" />
               <div>
-                <h3 className="font-semibold text-gray-800">
-                  Sandton City Branch
-                </h3>
-                <p className="text-gray-600">
-                  Shop L31, Sandton City Mall, 83 Rivonia Rd, Sandhurst, Sandton
-                </p>
+                <h3 className="font-semibold text-gray-800">Sandton City Branch</h3>
+                <p className="text-gray-600">Shop L31, Sandton City Mall, 83 Rivonia Rd, Sandhurst, Sandton</p>
               </div>
             </div>
 
@@ -193,10 +185,8 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
               <div>
                 <h3 className="font-semibold text-gray-800">Operating Hours</h3>
                 <p className="text-gray-600">
-                  Weekdays: 09:00 - 16:30
-                  <br />
-                  Saturday: 09:00 - 13:00
-                  <br />
+                  Weekdays: 09:00 - 16:30<br />
+                  Saturday: 09:00 - 13:00<br />
                   Sunday: Closed
                 </p>
               </div>
@@ -211,12 +201,7 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
             </div>
 
             <button
-              onClick={() =>
-                window.open(
-                  "https://www.google.com/maps/search/?api=1&query=Sandton+City+Mall",
-                  "_blank"
-                )
-              }
+              onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Sandton+City+Mall', '_blank')}
               className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
             >
               Get Directions

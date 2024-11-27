@@ -9,10 +9,7 @@ interface DashboardProps {
   onSelectAccount: (account: Account) => void;
 }
 
-export default function Dashboard({
-  isDuressMode,
-  onSelectAccount,
-}: DashboardProps) {
+export default function Dashboard({ isDuressMode, onSelectAccount }: DashboardProps) {
   const accounts: Account[] = [
     {
       id: "1",

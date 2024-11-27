@@ -1,6 +1,6 @@
-import React from "react";
-import { X, AlertTriangle } from "lucide-react";
-import { Transaction } from "../types/accounts";
+import React from 'react';
+import { X, AlertTriangle } from 'lucide-react';
+import { Transaction } from '../types/accounts';
 
 interface FraudClaimModalProps {
   onClose: () => void;
@@ -13,23 +13,17 @@ interface FraudClaimModalProps {
   transaction?: Transaction;
 }
 
-export function FraudClaimModal({
-  onClose,
-  onSubmit,
-  transaction,
-}: FraudClaimModalProps) {
+export function FraudClaimModal({ onClose, onSubmit, transaction }: FraudClaimModalProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-
+    
     onSubmit({
-      type: formData.get("type") as string,
-      description: formData.get("description") as string,
-      amount: transaction
-        ? Math.abs(transaction.amount)
-        : Number(formData.get("amount")),
-      date: transaction ? transaction.date : (formData.get("date") as string),
+      type: formData.get('type') as string,
+      description: formData.get('description') as string,
+      amount: transaction ? Math.abs(transaction.amount) : Number(formData.get('amount')),
+      date: transaction ? transaction.date : formData.get('date') as string,
     });
   };
 
@@ -41,10 +35,7 @@ export function FraudClaimModal({
             <AlertTriangle className="w-6 h-6 text-red-600" />
             <h2 className="text-xl font-semibold">Report Fraud</h2>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -60,9 +51,7 @@ export function FraudClaimModal({
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select type</option>
-              <option value="Unauthorized Transaction">
-                Unauthorized Transaction
-              </option>
+              <option value="Unauthorized Transaction">Unauthorized Transaction</option>
               <option value="Card Skimming">Card Skimming</option>
               <option value="Online Fraud">Online Fraud</option>
               <option value="Identity Theft">Identity Theft</option>
@@ -97,7 +86,7 @@ export function FraudClaimModal({
                 type="date"
                 name="date"
                 required
-                max={new Date().toISOString().split("T")[0]}
+                max={new Date().toISOString().split('T')[0]}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
               />
             </div>

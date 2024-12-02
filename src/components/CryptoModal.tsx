@@ -1,19 +1,18 @@
-import React from 'react';
-import { X } from 'lucide-react';
-import { CryptoAsset } from '../types/crypto';
+import { X } from "lucide-react";
+import { CryptoAsset } from "../types/crypto";
 
 interface CryptoModalProps {
-  type: 'send' | 'receive' | 'buy' | 'swap';
+  type: "send" | "receive" | "buy" | "swap";
   onClose: () => void;
   assets: CryptoAsset[];
 }
 
 export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
   const titles = {
-    send: 'Send Crypto',
-    receive: 'Receive Crypto',
-    buy: 'Buy Crypto',
-    swap: 'Swap Crypto'
+    send: "Send Crypto",
+    receive: "Receive Crypto",
+    buy: "Buy Crypto",
+    swap: "Swap Crypto",
   };
 
   return (
@@ -21,20 +20,23 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
       <div className="bg-white rounded-2xl w-full max-w-lg my-4">
         <div className="flex justify-between items-center p-4 sm:p-6 border-b">
           <h2 className="text-lg sm:text-xl font-semibold">{titles[type]}</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <div className="p-4 sm:p-6">
-          {type === 'send' && (
+          {type === "send" && (
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Select Asset
                 </label>
                 <select className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                  {assets.map(asset => (
+                  {assets.map((asset) => (
                     <option key={asset.id} value={asset.symbol}>
                       {asset.name} ({asset.balance} {asset.symbol})
                     </option>
@@ -64,14 +66,14 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
             </div>
           )}
 
-          {type === 'receive' && (
+          {type === "receive" && (
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Select Asset
                 </label>
                 <select className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                  {assets.map(asset => (
+                  {assets.map((asset) => (
                     <option key={asset.id} value={asset.symbol}>
                       {asset.name} ({asset.symbol})
                     </option>
@@ -79,7 +81,9 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
                 </select>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600 mb-2">Your Wallet Address:</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  Your Wallet Address:
+                </p>
                 <p className="font-mono text-sm break-all">
                   0x742d35Cc6634C0532925a3b844Bc454e4438f44e
                 </p>
@@ -92,14 +96,14 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
             </div>
           )}
 
-          {type === 'buy' && (
+          {type === "buy" && (
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Select Asset
                 </label>
                 <select className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                  {assets.map(asset => (
+                  {assets.map((asset) => (
                     <option key={asset.id} value={asset.symbol}>
                       {asset.name} ({asset.symbol})
                     </option>
@@ -128,14 +132,14 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
             </div>
           )}
 
-          {type === 'swap' && (
+          {type === "swap" && (
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   From
                 </label>
                 <select className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                  {assets.map(asset => (
+                  {assets.map((asset) => (
                     <option key={asset.id} value={asset.symbol}>
                       {asset.name} ({asset.balance} {asset.symbol})
                     </option>
@@ -147,7 +151,7 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
                   To
                 </label>
                 <select className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                  {assets.map(asset => (
+                  {assets.map((asset) => (
                     <option key={asset.id} value={asset.symbol}>
                       {asset.name} ({asset.symbol})
                     </option>
@@ -173,7 +177,7 @@ export function CryptoModal({ type, onClose, assets }: CryptoModalProps) {
             onClick={onClose}
             className="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-xl hover:bg-blue-700 transition"
           >
-            {type === 'receive' ? 'Done' : 'Continue'}
+            {type === "receive" ? "Done" : "Continue"}
           </button>
         </div>
       </div>

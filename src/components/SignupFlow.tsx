@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Shield, Upload, CheckCircle, AlertCircle } from "lucide-react";
+import { Shield, Upload, CheckCircle } from "lucide-react";
 
 interface SignupFlowProps {
   onComplete: () => void;
@@ -17,7 +17,7 @@ interface FormData {
   postalCode: string;
 }
 
-export default function SignupFlow({ onComplete }: SignupFlowProps) {
+export function SignupFlow({ onComplete }: SignupFlowProps) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",

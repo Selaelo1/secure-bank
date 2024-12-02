@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ArrowLeft,
   Clock,
@@ -30,9 +30,9 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({
   isDuressMode,
   onAddFraudClaim,
 }) => {
-  const [activeTab, setActiveTab] = useState<"transactions" | "settings" | "branch">("transactions");
-  const [showCardModal, setShowCardModal] = useState(false);
-  const [showTransferModal, setShowTransferModal] = useState(false);
+  const [activeTab, setActiveTab] = React.useState<"transactions" | "settings" | "branch">("transactions");
+  const [showCardModal, setShowCardModal] = React.useState(false);
+  const [showTransferModal, setShowTransferModal] = React.useState(false);
 
   return (
     <div className="h-full bg-gray-50">

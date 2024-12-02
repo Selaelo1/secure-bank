@@ -1,6 +1,13 @@
-import React from 'react';
-import { X, Phone, Mail, MessageSquare, AlertTriangle, Clock, CheckCircle } from 'lucide-react';
-import { FraudClaim } from '../types/fraud';
+import {
+  X,
+  Phone,
+  Mail,
+  MessageSquare,
+  AlertTriangle,
+  Clock,
+  CheckCircle,
+} from "lucide-react";
+import { FraudClaim } from "../types/fraud";
 
 interface FraudClaimDetailsProps {
   claim: FraudClaim;
@@ -8,50 +15,57 @@ interface FraudClaimDetailsProps {
   onDelete?: (claimId: string) => void;
 }
 
-export function FraudClaimDetails({ claim, onClose, onDelete }: FraudClaimDetailsProps) {
-  const getStatusIcon = (status: FraudClaim['status']) => {
+export function FraudClaimDetails({
+  claim,
+  onClose,
+  onDelete,
+}: FraudClaimDetailsProps) {
+  const getStatusIcon = (status: FraudClaim["status"]) => {
     switch (status) {
-      case 'RESOLVED':
+      case "RESOLVED":
         return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'REJECTED':
+      case "REJECTED":
         return <AlertTriangle className="w-5 h-5 text-red-500" />;
-      case 'INVESTIGATING':
+      case "INVESTIGATING":
         return <Clock className="w-5 h-5 text-yellow-500" />;
       default:
         return <Clock className="w-5 h-5 text-blue-500" />;
     }
   };
 
-  const getStatusColor = (status: FraudClaim['status']) => {
+  const getStatusColor = (status: FraudClaim["status"]) => {
     switch (status) {
-      case 'RESOLVED':
-        return 'text-green-600';
-      case 'REJECTED':
-        return 'text-red-600';
-      case 'INVESTIGATING':
-        return 'text-yellow-600';
+      case "RESOLVED":
+        return "text-green-600";
+      case "REJECTED":
+        return "text-red-600";
+      case "INVESTIGATING":
+        return "text-yellow-600";
       default:
-        return 'text-blue-600';
+        return "text-blue-600";
     }
   };
 
   const formatStatus = (status: string) => {
-    return status.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+    return status
+      .replace(/_/g, " ")
+      .toLowerCase()
+      .replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
-  const handleContactAgent = (method: 'call' | 'email' | 'message') => {
+  const handleContactAgent = (method: "call" | "email" | "message") => {
     if (!claim.agent) return;
 
     switch (method) {
-      case 'call':
+      case "call":
         window.location.href = `tel:${claim.agent.phone}`;
         break;
-      case 'email':
+      case "email":
         window.location.href = `mailto:${claim.agent.email}`;
         break;
-      case 'message':
+      case "message":
         // Implement in-app messaging or chat functionality
-        alert('Chat functionality coming soon');
+        alert("Chat functionality coming soon");
         break;
     }
   };
@@ -64,12 +78,16 @@ export function FraudClaimDetails({ claim, onClose, onDelete }: FraudClaimDetail
             {getStatusIcon(claim.status)}
             <div>
               <h2 className="text-xl font-semibold">Claim Details</h2>
-              <p className={`text-sm font-medium ${getStatusColor(claim.status)}`}>
+              <p
+                className={`text-sm font-medium ${getStatusColor(
+                  claim.status
+                )}`}
+              >
                 {formatStatus(claim.status)}
               </p>
             </div>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full transition"
           >
@@ -93,10 +111,13 @@ export function FraudClaimDetails({ claim, onClose, onDelete }: FraudClaimDetail
             </div>
             <div>
               <p className="text-gray-500">Amount</p>
-              <p className="font-medium">R {claim.amount.toLocaleString('en-ZA', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}</p>
+              <p className="font-medium">
+                R{" "}
+                {claim.amount.toLocaleString("en-ZA", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </p>
             </div>
           </div>
 
@@ -110,26 +131,28 @@ export function FraudClaimDetails({ claim, onClose, onDelete }: FraudClaimDetail
               <div>
                 <p className="text-gray-500">Investigating Agent</p>
                 <p className="font-medium">{claim.agent.name}</p>
-                <p className="text-sm text-gray-500">{claim.agent.department}</p>
+                <p className="text-sm text-gray-500">
+                  {claim.agent.department}
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <button 
-                  onClick={() => handleContactAgent('call')}
+                <button
+                  onClick={() => handleContactAgent("call")}
                   className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Call</span>
                 </button>
-                <button 
-                  onClick={() => handleContactAgent('email')}
+                <button
+                  onClick={() => handleContactAgent("email")}
                   className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Email</span>
                 </button>
-                <button 
-                  onClick={() => handleContactAgent('message')}
+                <button
+                  onClick={() => handleContactAgent("message")}
                   className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -144,7 +167,10 @@ export function FraudClaimDetails({ claim, onClose, onDelete }: FraudClaimDetail
               <p className="font-medium text-gray-800">Case Updates</p>
               <div className="space-y-2">
                 {claim.updates.map((update, index) => (
-                  <div key={index} className="bg-gray-50 p-3 rounded-lg text-sm">
+                  <div
+                    key={index}
+                    className="bg-gray-50 p-3 rounded-lg text-sm"
+                  >
                     <p className="text-gray-500 mb-1">{update.date}</p>
                     <p className="font-medium">{update.message}</p>
                   </div>
@@ -154,7 +180,7 @@ export function FraudClaimDetails({ claim, onClose, onDelete }: FraudClaimDetail
           )}
         </div>
 
-        {claim.status === 'AWAITING_AGENT' && onDelete && (
+        {claim.status === "AWAITING_AGENT" && onDelete && (
           <div className="p-6 border-t">
             <button
               onClick={() => onDelete(claim.id)}

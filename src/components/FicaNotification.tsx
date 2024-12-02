@@ -1,5 +1,4 @@
-import React from 'react';
-import { MapPin, Clock, Fingerprint, CheckCircle } from 'lucide-react';
+import { MapPin, Clock, Fingerprint, CheckCircle } from "lucide-react";
 
 interface FicaNotificationProps {
   onBackToHome: () => void;
@@ -23,7 +22,9 @@ export function FicaNotification({ onBackToHome }: FicaNotificationProps) {
 
         <div className="space-y-6 mb-8">
           <div className="bg-gray-50 p-4 rounded-xl">
-            <h2 className="font-semibold text-gray-800 mb-4">Required at Branch:</h2>
+            <h2 className="font-semibold text-gray-800 mb-4">
+              Required at Branch:
+            </h2>
             <ul className="space-y-3">
               <li className="flex items-center text-gray-600">
                 <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
@@ -45,7 +46,9 @@ export function FicaNotification({ onBackToHome }: FicaNotificationProps) {
           </div>
 
           <div className="border-t pt-6">
-            <h3 className="font-semibold text-gray-800 mb-4">Branch Information</h3>
+            <h3 className="font-semibold text-gray-800 mb-4">
+              Branch Information
+            </h3>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-blue-600 mt-1" />
@@ -73,7 +76,7 @@ export function FicaNotification({ onBackToHome }: FicaNotificationProps) {
 
         <div className="space-y-4">
           <button
-            onClick={() => window.open('https://www.google.com/maps', '_blank')}
+            onClick={() => window.open("https://www.google.com/maps", "_blank")}
             className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
           >
             Find Nearest Branch

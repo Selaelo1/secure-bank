@@ -1,5 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -23,27 +24,27 @@ export function MobileMenu({ isOpen, onClose, onLoginClick, onSignupClick }: Mob
         </div>
         <nav className="p-4">
           <div className="space-y-1">
-            <a
-              href="#features"
+            <Link
+              to="/features"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
               onClick={onClose}
             >
               Features
-            </a>
-            <a
-              href="#security"
+            </Link>
+            <Link
+              to="/security"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
               onClick={onClose}
             >
               Security
-            </a>
-            <a
-              href="#pricing"
+            </Link>
+            <Link
+              to="/business"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
               onClick={onClose}
             >
-              Pricing
-            </a>
+              Business
+            </Link>
           </div>
           <div className="mt-6 space-y-3 p-4 border-t">
             <button

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Navbar } from "./landing/Navbar";
-import { MobileMenu } from "./MobileMenu";
-import { HeroSection } from "./landing/HeroSection";
-import { FeaturesSection } from "./landing/FeaturesSection";
-import { Footer } from "./Footer";
-import { SecuritySection } from "./landing/SecurityFeatures"; // Import SecuritySection
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Navbar } from './landing/Navbar';
+import { MobileMenu } from './MobileMenu';
+import { HeroSection } from './landing/HeroSection';
+import { FeaturesSection } from './landing/FeaturesSection';
+import { Footer } from './Footer';
+import { SecuritySection } from './landing/SecurityFeatures'; // Import SecuritySection
 
 interface LandingPageProps {
   onLoginClick: () => void;
@@ -35,9 +35,12 @@ export function LandingPage({ onLoginClick, onSignupClick }: LandingPageProps) {
         onSignupClick={onSignupClick}
       />
 
-      <HeroSection onLoginClick={onLoginClick} onSignupClick={onSignupClick} />
-
+      <HeroSection
+        onLoginClick={onLoginClick}
+        onSignupClick={onSignupClick}
+      />
       <FeaturesSection onFeatureClick={handleFeatureClick} />
+      {/* Add SecuritySection Here */}
       <SecuritySection />
       <Footer />
     </div>

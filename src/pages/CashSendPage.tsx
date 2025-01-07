@@ -6,11 +6,59 @@ export function CashSendPage() {
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    if (!recipient.match(/^(\+27|0)[1-9][0-9]{8}$/)) {
+      setError('Please enter a valid South African phone number');
+      return false;
+    }
+
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum) || amountNum <= 0 || amountNum > 3000) {
+      setError('Amount must be between R0 and R3,000');
+      return false;
+    }
+
+    if (!pin.match(/^\d{4}$/)) {
+      setError('PIN must be exactly 4 digits');
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle cash send logic
-    alert('Cash send successful! Share the PIN with the recipient.');
+    setError('');
+    setSuccess(false);
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Generate reference number
+      const referenceNumber = Math.random().toString(36).substring(2, 10).toUpperCase();
+
+      setSuccess(true);
+      setAmount('');
+      setRecipient('');
+      setPin('');
+
+      alert(`Cash send successful!\n\nReference: ${referenceNumber}\nAmount: R${amount}\nRecipient: ${recipient}\n\nThe recipient can withdraw the money using the PIN: ${pin}`);
+    } catch (err) {
+      setError('Failed to process cash send. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,6 +83,18 @@ export function CashSendPage() {
             <h1 className="text-2xl font-bold">Cash Send</h1>
           </div>
 
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg">
+              {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-600 rounded-lg">
+              Cash send completed successfully!
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -47,6 +107,7 @@ export function CashSendPage() {
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 required
                 placeholder="+27"
+                pattern="^(\+27|0)[1-9][0-9]{8}$"
               />
             </div>
 
@@ -82,14 +143,16 @@ export function CashSendPage() {
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 required
                 placeholder="4-digit PIN"
+                pattern="\d{4}"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition mt-6"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Send Cash
+              {loading ? 'Processing...' : 'Send Cash'}
             </button>
           </form>
 

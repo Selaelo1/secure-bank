@@ -50,7 +50,7 @@ export function Footer() {
             <span className="text-xl font-bold text-white">SecureBank</span>
           </div>
           <p className="text-sm">
-            © 2024 SecureBank. All rights reserved.
+            © 2025 SecureBank. All rights reserved.
           </p>
         </div>
       </div>

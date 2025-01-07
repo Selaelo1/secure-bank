@@ -1,14 +1,7 @@
+import React from "react";
 import { Shield } from "lucide-react";
 
-export const SecuritySection = () => {
-  const onSignupClick = () => {
-    console.log("Redirect to signup");
-  };
-
-  const onLoginClick = () => {
-    console.log("Redirect to login");
-  };
-
+export function SecuritySection() {
   const securityFeatures = [
     "256-bit encryption for all transactions",
     "Biometric authentication",
@@ -84,13 +77,13 @@ export const SecuritySection = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
-              onClick={onSignupClick}
+              onClick={() => {}}
               className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition"
             >
               Open Account
             </button>
             <button
-              onClick={onLoginClick}
+              onClick={() => {}}
               className="bg-gray-700 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-600 transition"
             >
               Sign In
@@ -100,6 +93,4 @@ export const SecuritySection = () => {
       </div>
     </div>
   );
-};
-
-export default SecuritySection;
+}

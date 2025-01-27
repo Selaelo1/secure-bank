@@ -1,21 +1,11 @@
 import { useState } from "react";
-import {
-  User,
-  Lock,
-  FileText,
-  Bell,
-  Shield,
-  Camera,
-  ArrowLeft,
-  Upload,
-  CheckCircle,
-  AlertTriangle,
-  AlertOctagon,
-  Clock,
-} from "lucide-react";
+import { User, Lock, FileText, Bell, Shield, Camera, ArrowLeft } from "lucide-react";
 import { FraudClaim } from "../types/fraud";
-import { FraudClaimModal } from "./FraudClaimModal";
-import { FraudClaimDetails } from "./FraudClaimDetails";
+import { PersonalInfo } from "./profile/PersonalInfo";
+import { SecuritySettings } from "./profile/SecuritySettings";
+import { Documents } from "./profile/Documents";
+import { Notifications } from "./profile/Notifications";
+import { FraudClaims } from "./profile/FraudClaims";
 
 interface ProfileSectionProps {
   onBackToDashboard: () => void;
@@ -28,47 +18,12 @@ export function ProfileSection({
   fraudClaims,
   onDeleteClaim 
 }: ProfileSectionProps) {
-  const [activeTab, setActiveTab] = useState("fraud");
-  const [showFraudModal, setShowFraudModal] = useState(false);
-  const [selectedClaim, setSelectedClaim] = useState<FraudClaim | null>(null);
-  const [documents] = useState<Document[]>([
-    { type: "ID Document", status: "VERIFIED", uploadDate: "2024-02-15" },
-    { type: "Proof of Address", status: "PENDING", uploadDate: "2024-03-14" },
-    { type: "Bank Statement", status: "REJECTED", uploadDate: "2024-03-10" },
+  const [activeTab, setActiveTab] = useState("personal");
+  const [documents] = useState([
+    { type: "ID Document", status: "VERIFIED" as const, uploadDate: "2024-02-15" },
+    { type: "Proof of Address", status: "PENDING" as const, uploadDate: "2024-03-14" },
+    { type: "Bank Statement", status: "REJECTED" as const, uploadDate: "2024-03-10" },
   ]);
-
-  const getStatusIcon = (status: Document["status"] | FraudClaim["status"]) => {
-    switch (status) {
-      case "VERIFIED":
-      case "RESOLVED":
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case "REJECTED":
-        return <AlertTriangle className="w-5 h-5 text-red-500" />;
-      case "INVESTIGATING":
-        return <Clock className="w-5 h-5 text-yellow-500" />;
-      default:
-        return <AlertOctagon className="w-5 h-5 text-blue-500" />;
-    }
-  };
-
-  const getStatusColor = (status: FraudClaim["status"]) => {
-    switch (status) {
-      case "RESOLVED":
-        return "text-green-600";
-      case "REJECTED":
-        return "text-red-600";
-      case "INVESTIGATING":
-        return "text-yellow-600";
-      case "AWAITING_AGENT":
-        return "text-blue-600";
-      default:
-        return "text-blue-600";
-    }
-  };
-
-  function handleFileUpload(_arg0: string): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 pb-8">
@@ -131,96 +86,19 @@ export function ProfileSection({
 
           {/* Content Sections */}
           <div className="p-6">
-            {/* Fraud Claims */}
+            {activeTab === "personal" && <PersonalInfo />}
+            {activeTab === "security" && <SecuritySettings />}
+            {activeTab === "documents" && <Documents documents={documents} />}
+            {activeTab === "notifications" && <Notifications />}
             {activeTab === "fraud" && (
-              <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Fraud Claims
-                </h3>
-
-                <div className="space-y-4">
-                  {fraudClaims.map((claim) => (
-                    <div
-                      key={claim.id}
-                      className="bg-gray-50 p-4 rounded-lg border"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm text-gray-500">Claim Type</p>
-                          <p className="font-medium">{claim.type}</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span
-                            className={`text-sm font-medium ${getStatusColor(
-                              claim.status
-                            )}`}
-                          >
-                            {claim.status.replace(/_/g, " ").toLowerCase()}
-                          </span>
-                          {getStatusIcon(claim.status)}
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 text-sm mt-4">
-                        <div>
-                          <p className="text-gray-500">Date Reported</p>
-                          <p className="font-medium">{claim.date}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-500">Amount</p>
-                          <p className="font-medium">
-                            R{" "}
-                            {claim.amount.toLocaleString("en-ZA", {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
-                          </p>
-                        </div>
-                        <div className="col-span-2">
-                          <p className="text-gray-500">Description</p>
-                          <p className="font-medium">{claim.description}</p>
-                        </div>
-                      </div>
-
-                      <div className="pt-3 border-t flex justify-between items-center">
-                        <button
-                          onClick={() => setSelectedClaim(claim)}
-                          className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-                        >
-                          View Details
-                        </button>
-                        {claim.status === "AWAITING_AGENT" && (
-                          <button
-                            onClick={() => onDeleteClaim(claim.id)}
-                            className="text-red-600 hover:text-red-700 text-sm font-medium"
-                          >
-                            Cancel Claim
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <FraudClaims
+                fraudClaims={fraudClaims}
+                onDeleteClaim={onDeleteClaim}
+              />
             )}
           </div>
         </div>
       </div>
-
-      {showFraudModal && (
-        <FraudClaimModal
-          onClose={() => setShowFraudModal(false)}
-          onSubmit={() => {}}
-        />
-      )}
-
-      {selectedClaim && (
-        <FraudClaimDetails
-          claim={selectedClaim}
-          onClose={() => setSelectedClaim(null)}
-          onDelete={onDeleteClaim}
-        />
-      )}
     </div>
   );
 }

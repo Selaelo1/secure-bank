@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { User, Lock, FileText, Bell, Shield, Camera, ArrowLeft } from "lucide-react";
+import {
+  User,
+  Lock,
+  FileText,
+  Bell,
+  Shield,
+  Camera,
+  ArrowLeft,
+  ChevronDown,
+} from "lucide-react";
 import { FraudClaim } from "../types/fraud";
 import { PersonalInfo } from "./profile/PersonalInfo";
 import { SecuritySettings } from "./profile/SecuritySettings";
@@ -13,29 +22,61 @@ interface ProfileSectionProps {
   onDeleteClaim: (claimId: string) => void;
 }
 
-export function ProfileSection({ 
-  onBackToDashboard, 
+export function ProfileSection({
+  onBackToDashboard,
   fraudClaims,
-  onDeleteClaim 
+  onDeleteClaim,
 }: ProfileSectionProps) {
   const [activeTab, setActiveTab] = useState("personal");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [documents] = useState([
-    { type: "ID Document", status: "VERIFIED" as const, uploadDate: "2024-02-15" },
-    { type: "Proof of Address", status: "PENDING" as const, uploadDate: "2024-03-14" },
-    { type: "Bank Statement", status: "REJECTED" as const, uploadDate: "2024-03-10" },
+    {
+      type: "ID Document",
+      status: "VERIFIED" as const,
+      uploadDate: "2024-02-15",
+    },
+    {
+      type: "Proof of Address",
+      status: "PENDING" as const,
+      uploadDate: "2024-03-14",
+    },
+    {
+      type: "Bank Statement",
+      status: "REJECTED" as const,
+      uploadDate: "2024-03-10",
+    },
   ]);
+
+  const tabs = [
+    { id: "personal", label: "Personal Info", icon: User },
+    { id: "security", label: "Security", icon: Lock },
+    { id: "documents", label: "Documents", icon: FileText },
+    { id: "notifications", label: "Notifications", icon: Bell },
+    { id: "fraud", label: "Fraud Claims", icon: Shield },
+  ];
+
+  const getCurrentTabLabel = () => {
+    return tabs.find((tab) => tab.id === activeTab)?.label || "";
+  };
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 pb-8">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-white border-b px-4 py-4 sticky top-0 z-10">
-        <button
-          onClick={onBackToDashboard}
-          className="flex items-center space-x-2 text-gray-600"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          <span>Back to Dashboard</span>
-        </button>
+      <div className="lg:hidden bg-white border-b px-4 py-4 sticky top-0 z-20">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBackToDashboard}
+            className="flex items-center space-x-2 text-gray-600"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back to Dashboard</span>
+          </button>
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto pt-6 lg:pt-24 px-4">
@@ -58,16 +99,56 @@ export function ProfileSection({
             </div>
           </div>
 
-          {/* Navigation Tabs */}
-          <div className="border-b overflow-x-auto">
+          {/* Mobile Tab Selector */}
+          <div className="lg:hidden border-b">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex items-center justify-between w-full p-4 text-left"
+            >
+              <div className="flex items-center space-x-2">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  if (tab.id === activeTab) {
+                    return (
+                      <Icon key={tab.id} className="w-5 h-5 text-blue-600" />
+                    );
+                  }
+                  return null;
+                })}
+                <span className="font-medium">{getCurrentTabLabel()}</span>
+              </div>
+              <ChevronDown
+                className={`w-5 h-5 text-gray-500 transition-transform ${
+                  isMobileMenuOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+              <div className="border-t">
+                {tabs.map(({ id, label, icon: Icon }) => (
+                  <button
+                    key={id}
+                    onClick={() => handleTabChange(id)}
+                    className={`flex items-center space-x-3 w-full p-4 text-left transition ${
+                      activeTab === id
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-gray-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span>{label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Navigation Tabs */}
+          <div className="hidden lg:block border-b overflow-x-auto">
             <nav className="flex space-x-6 px-6 whitespace-nowrap">
-              {[
-                { id: "personal", label: "Personal Info", icon: User },
-                { id: "security", label: "Security", icon: Lock },
-                { id: "documents", label: "Documents", icon: FileText },
-                { id: "notifications", label: "Notifications", icon: Bell },
-                { id: "fraud", label: "Fraud Claims", icon: Shield },
-              ].map(({ id, label, icon: Icon }) => (
+              {tabs.map(({ id, label, icon: Icon }) => (
                 <button
                   key={id}
                   onClick={() => setActiveTab(id)}
